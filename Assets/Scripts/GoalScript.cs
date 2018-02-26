@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class GoalScript : MonoBehaviour {
 
+    AudioSource audioSource;
+
 	// Use this for initialization
 	void Start () {
-		
+        audioSource = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -19,7 +21,14 @@ public class GoalScript : MonoBehaviour {
     {
         if (col.gameObject.name == "Player")
         {
-            Application.LoadLevel("menu");
+            audioSource.Play();
+            StartCoroutine("Wait");
         }
+    }
+
+    IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(2);
+        Application.LoadLevel("menu");
     }
 }
