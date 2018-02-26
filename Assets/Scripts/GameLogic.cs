@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameLogic : MonoBehaviour {
 
@@ -20,8 +22,10 @@ public class GameLogic : MonoBehaviour {
 		if (playerComponent.Lives == 0) {
 			gameOver = true;
 
-			// pause the game
-			Time.timeScale = 0.0f;
-		}
+            // pause the game
+            //Time.timeScale = 0.0f;
+            // Go back to menu instead of pause.
+            SceneManager.LoadScene("menu");
+        }
 	}
 }
