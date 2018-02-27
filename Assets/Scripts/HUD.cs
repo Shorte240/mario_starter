@@ -5,8 +5,8 @@ using System.Collections;
 public class HUD : MonoBehaviour {
 	// the following variables need connected up in the editor inspector
 	public Text livesText; // text object to display the number of lives
-	public Text gameOverText; // text object to display game over message
-
+    public Text scoreText; // text object to display the players score
+    public Text gameOverText; // text object to display game over message
 
 	Player playerComponent;
 	GameLogic gameLogicComponent;
@@ -26,8 +26,11 @@ public class HUD : MonoBehaviour {
 		// update the display for the player's number of lives
 		livesText.text = "Lives: "+playerComponent.Lives;
 
-		// if game over, then display game over text
-		if (gameLogicComponent.gameOver == true) {
+        // update the display for the player's score
+        scoreText.text = "Score: " + playerComponent.Score;
+
+        // if game over, then display game over text
+        if (gameLogicComponent.gameOver == true) {
 			gameOverText.gameObject.SetActive (true);
 		}
 	}

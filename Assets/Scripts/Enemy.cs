@@ -18,7 +18,9 @@ public class Enemy : MonoBehaviour {
 
 	Vector3 start_direction; // start direction of the enemy
 
-	void Start()
+    AudioSource audioSource; // source to play audio
+
+    void Start()
 	{
 		// find the player game object in the scene
 		playerGameObject = GameObject.FindGameObjectWithTag("Player");
@@ -28,7 +30,10 @@ public class Enemy : MonoBehaviour {
 
 		// record the start direction
 		start_direction = direction;
-	}
+
+        // get audio component
+        audioSource = GetComponent<AudioSource>();
+    }
 
 	public void Reset()
 	{
@@ -87,4 +92,22 @@ public class Enemy : MonoBehaviour {
 			Reset();
 		}
 	}
+
+    void OnTriggerEnter(Collider coll)
+    {
+        if(coll.gameObject.CompareTag ("Player"))
+        {
+            Debug.Log("HIT");
+            Reset();
+
+            // play coin collection sound
+            audioSource.Play();
+
+            // get player script component
+            Player playerComponent = playerGameObject.GetComponent<Player>();
+
+            // remove a life from the player
+            playerComponent.Score = playerComponent.Score + 100;
+        }
+    }
 }

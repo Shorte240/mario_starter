@@ -11,15 +11,20 @@ public class Player : MonoBehaviour {
 	private Vector3 moveDirection = Vector3.zero;
 
 	public int Lives = 3; // number of lives the player hs
+    public int Score = 0; // score the player has
 
+    AudioSource audioSource; // source to play audio
 
-	Vector3 start_position; // start position of the player
+    Vector3 start_position; // start position of the player
 
 
 	void Start()
 	{
-		// record the start position of the player
-		start_position = transform.position;
+        // get audio component
+        audioSource = GetComponent<AudioSource>();
+
+        // record the start position of the player
+        start_position = transform.position;
 	}
 
 	public void Reset()
@@ -44,7 +49,12 @@ public class Player : MonoBehaviour {
 
 			// check to see if the player should jump
 			if (Input.GetButton("Jump"))
+            {
 				moveDirection.y = jumpSpeed;
+
+                // play coin collection sound
+                audioSource.Play();
+            }
 		}
 
 		// apply gravity to movement direction

@@ -6,9 +6,13 @@ public class CoinScript : MonoBehaviour {
 
     AudioSource audioSource;
 
+    GameObject playerGameObject; // this is a reference to the player game object
+
     // Use this for initialization
     void Start () {
         audioSource = GetComponent<AudioSource>();
+        // find the player game object in the scene
+        playerGameObject = GameObject.FindGameObjectWithTag("Player");
     }
 	
 	// Update is called once per frame
@@ -21,8 +25,16 @@ public class CoinScript : MonoBehaviour {
     {
         if (col.gameObject.name == "Player")
         {
+            // play coin collection sound
             audioSource.Play();
-            // Add X to players score.
+
+            // get player script component
+            Player playerComponent = playerGameObject.GetComponent<Player>();
+
+            // add 100 to the players score
+            playerComponent.Score = playerComponent.Score + 100;
+
+            // wait before deleting coin
             StartCoroutine("Wait");
         }
     }
