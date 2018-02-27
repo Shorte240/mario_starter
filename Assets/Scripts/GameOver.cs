@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public class GameOver : MonoBehaviour {
 
@@ -13,6 +14,7 @@ public class GameOver : MonoBehaviour {
     IEnumerator Wait()
     {
         yield return new WaitForSeconds(4);
+        PlayerPrefs.SetInt("Time", 30);
         SceneManager.LoadScene("menu");
     }
 }
