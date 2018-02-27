@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
 
 public class Timer : MonoBehaviour {
 
@@ -10,7 +11,10 @@ public class Timer : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        startTime = 30;
+        if (PlayerPrefs.HasKey("Time"))
+        {
+            startTime = PlayerPrefs.GetInt("Time");
+        }
 	}
 	
 	// Update is called once per frame

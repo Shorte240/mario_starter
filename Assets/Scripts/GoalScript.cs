@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GoalScript : MonoBehaviour {
 
@@ -29,6 +30,6 @@ public class GoalScript : MonoBehaviour {
     IEnumerator Wait()
     {
         yield return new WaitForSeconds(1);
-        Application.LoadLevel("menu");
+        SceneManager.LoadScene("winGame");
     }
 }
