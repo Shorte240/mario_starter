@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.IO;
+using UnityEngine.SceneManagement;
 
 public class Enemy : MonoBehaviour {
 
@@ -18,9 +20,7 @@ public class Enemy : MonoBehaviour {
 
 	Vector3 start_direction; // start direction of the enemy
 
-    public AudioClip audioClip; // source to play audio
-    public AudioClip audioClip2; // source to play audio
-    public AudioSource audio;
+    public AudioSource audioSource; // source to play audio
 
     void Start()
 	{
@@ -34,7 +34,7 @@ public class Enemy : MonoBehaviour {
 		start_direction = direction;
 
         // get audio component
-        audio = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
     }
 
 	public void Reset()
@@ -80,18 +80,12 @@ public class Enemy : MonoBehaviour {
 			direction = -direction;
 		} else if (hit.collider.gameObject.CompareTag ("Player")) {
             // we've hit the player
-            // play audio
-            audio.clip = audioClip2;
-            audio.Play();
 
-			// get player script component
-			Player playerComponent = playerGameObject.GetComponent<Player> ();
+            // remove a life from the player
+            PlayerPrefs.SetInt("Lives", (PlayerPrefs.GetInt("Lives") - 1));
 
-			// remove a life from the player
-			playerComponent.Lives = playerComponent.Lives - 1;
-
-			// reset the player
-			playerComponent.Reset();
+            // reset the player
+            SceneManager.LoadScene("lostLife");
 
 			// reset the enemy
 			Reset();
@@ -106,8 +100,7 @@ public class Enemy : MonoBehaviour {
             Reset();
 
             // play coin collection sound
-            audio.clip = audioClip;
-            audio.Play();
+            audioSource.Play();
 
             // get player script component
             Player playerComponent = playerGameObject.GetComponent<Player>();

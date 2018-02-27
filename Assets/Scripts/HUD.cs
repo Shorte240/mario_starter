@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.IO;
 
 public class HUD : MonoBehaviour {
 	// the following variables need connected up in the editor inspector
@@ -24,7 +25,10 @@ public class HUD : MonoBehaviour {
 	void Update () {
 
 		// update the display for the player's number of lives
-		livesText.text = "Lives: "+playerComponent.Lives;
+        if (PlayerPrefs.HasKey("Lives"))
+        {
+            livesText.text = "Lives: " + PlayerPrefs.GetInt("Lives");
+        }
 
         // update the display for the player's score
         scoreText.text = "Score: " + playerComponent.Score;
