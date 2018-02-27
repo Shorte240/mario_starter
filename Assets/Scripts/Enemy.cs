@@ -18,7 +18,9 @@ public class Enemy : MonoBehaviour {
 
 	Vector3 start_direction; // start direction of the enemy
 
-    AudioSource audioSource; // source to play audio
+    public AudioClip audioClip; // source to play audio
+    public AudioClip audioClip2; // source to play audio
+    public AudioSource audio;
 
     void Start()
 	{
@@ -32,7 +34,7 @@ public class Enemy : MonoBehaviour {
 		start_direction = direction;
 
         // get audio component
-        audioSource = GetComponent<AudioSource>();
+        audio = GetComponent<AudioSource>();
     }
 
 	public void Reset()
@@ -77,7 +79,10 @@ public class Enemy : MonoBehaviour {
 			// flip the direction of the enemy
 			direction = -direction;
 		} else if (hit.collider.gameObject.CompareTag ("Player")) {
-			// we've hit the player
+            // we've hit the player
+            // play audio
+            audio.clip = audioClip2;
+            audio.Play();
 
 			// get player script component
 			Player playerComponent = playerGameObject.GetComponent<Player> ();
@@ -101,7 +106,8 @@ public class Enemy : MonoBehaviour {
             Reset();
 
             // play coin collection sound
-            audioSource.Play();
+            audio.clip = audioClip;
+            audio.Play();
 
             // get player script component
             Player playerComponent = playerGameObject.GetComponent<Player>();
